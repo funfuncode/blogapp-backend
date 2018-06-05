@@ -50,7 +50,9 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        return response()->json($post);
     }
 
     /**
@@ -73,7 +75,13 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $input = $request->all();
+
+        $post->update($input);
+
+        return response()->json($post);
     }
 
     /**
@@ -84,6 +92,9 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
+        $response = array('response' => 'Post has been deleted', 'success' => true);
+        return $response;
     }
 }
